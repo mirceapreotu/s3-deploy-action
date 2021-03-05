@@ -1,0 +1,9 @@
+name: "S3 Deploy Action"
+description: "Installs and runs npm command, syncs ouput to an AWS S3 bucket and invalidates an AWS CloudFront distribution"
+author: mirceapreotu
+runs:
+  using: docker
+  image: Dockerfile
+branding:
+  icon: upload-cloud
+  color: green
