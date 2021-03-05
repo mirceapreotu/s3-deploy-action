@@ -2,11 +2,6 @@
 
 set -e
 
-if [ -z "$AWS_S3_BUCKET" ]; then
-  echo "AWS_S3_BUCKET is missing"
-  exit 1
-fi
-
 if [ -z "$AWS_ACCESS_KEY_ID" ]; then
   echo "AWS_ACCESS_KEY_ID is missing"
   exit 1
@@ -22,13 +17,13 @@ if [ -z "$AWS_REGION" ]; then
   exit 1
 fi
 
-if [ -z "$AWS_CLOUDFRONT_DISTRIBUTION_ID" ]; then
-  echo "AWS_CLOUDFRONT_DISTRIBUTION_ID is missing"
+if [ -z "$AWS_S3_BUCKET" ]; then
+  echo "AWS_S3_BUCKET is missing"
   exit 1
 fi
 
-if [ -z "$AWS_S3_BUCKET" ]; then
-  echo "AWS_S3_BUCKET is missing"
+if [ -z "$AWS_CLOUDFRONT_DISTRIBUTION_ID" ]; then
+  echo "AWS_CLOUDFRONT_DISTRIBUTION_ID is missing"
   exit 1
 fi
 
