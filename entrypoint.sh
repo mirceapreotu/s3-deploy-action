@@ -34,8 +34,8 @@ ${AWS_REGION}
 text
 EOF
 
-if [ -n "$COMMAND" ]; then
-  COMMAND="build"
+if [ -n "$NPM_TASK" ]; then
+  NPM_TASK="build"
 fi
 
 if [ -n "$DIST_DIR" ]; then
@@ -43,7 +43,7 @@ if [ -n "$DIST_DIR" ]; then
 fi
 
 sh -c "npm install" \
-&& sh -c "npm run ${COMMAND}" \
+&& sh -c "npm run ${NPM_TASK}" \
 && sh -c "aws s3 sync ${DIST_DIR} s3://${AWS_S3_BUCKET}/${AWS_S3_BUCKET_FOLDER} \
               --profile react-deploy-to-s3-action \
               --no-progress"
