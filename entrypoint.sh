@@ -27,22 +27,22 @@ if [ -z "$AWS_CLOUDFRONT_DISTRIBUTION_ID" ]; then
   exit 1
 fi
 
+if [ -z "$NPM_TASK" ]; then
+  echo "NPM_TASK is missing"
+  exit 1
+fi
+
+if [ -z "$DIST_DIR" ]; then
+  echo "DIST_DIR is missing"
+  exit 1
+fi
+
 aws configure --profile s3-deploy-action <<-EOF > /dev/null 2>&1
 ${AWS_ACCESS_KEY_ID}
 ${AWS_SECRET_ACCESS_KEY}
 ${AWS_REGION}
 text
 EOF
-
-if [ -n "$NPM_TASK" ]; then
-  echo "NPM_TASK is missing"
-  exit 1
-fi
-
-if [ -n "$DIST_DIR" ]; then
-  echo "DIST_DIR is missing"
-  exit 1
-fi
 
 sh -c "npm install" \
 && sh -c "npm run ${NPM_TASK}" \
