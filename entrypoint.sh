@@ -35,17 +35,19 @@ text
 EOF
 
 if [ -n "$NPM_TASK" ]; then
-  NPM_TASK="build"
+  echo "NPM_TASK is missing"
+  exit 1
 fi
 
 if [ -n "$DIST_DIR" ]; then
-  DIST_DIR="dist"
+  echo "DIST_DIR is missing"
+  exit 1
 fi
 
 sh -c "npm install" \
 && sh -c "npm run ${NPM_TASK}" \
 && sh -c "aws s3 sync ${DIST_DIR} s3://${AWS_S3_BUCKET}/${AWS_S3_BUCKET_FOLDER} \
-              --profile react-deploy-to-s3-action \
+              --profile s3-deploy-action \
               --no-progress"
 SUCCESS=$?
 
