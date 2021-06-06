@@ -22,22 +22,7 @@ if [ -z "$AWS_S3_BUCKET" ]; then
   exit 1
 fi
 
-if [ -z "$AWS_CLOUDFRONT_DISTRIBUTION_ID" ]; then
-  echo "AWS_CLOUDFRONT_DISTRIBUTION_ID is missing"
-  exit 1
-fi
-
-if [ -z "$NPM_TASK" ]; then
-  echo "NPM_TASK is missing"
-  exit 1
-fi
-
-if [ -z "$DIST_DIR" ]; then
-  echo "DIST_DIR is missing"
-  exit 1
-fi
-
-aws configure --profile s3-deploy-action <<-EOF > /dev/null 2>&1
+aws configure --profile aws-deploy-action <<-EOF > /dev/null 2>&1
 ${AWS_ACCESS_KEY_ID}
 ${AWS_SECRET_ACCESS_KEY}
 ${AWS_REGION}
@@ -45,9 +30,9 @@ text
 EOF
 
 sh -c "npm install" \
-&& sh -c "npm run ${NPM_TASK}" \
-&& sh -c "aws s3 sync ${DIST_DIR} s3://${AWS_S3_BUCKET}/${AWS_S3_BUCKET_FOLDER} \
-              --profile s3-deploy-action \
+&& sh -c "npm run build" \
+&& sh -c "aws s3 sync dist s3://${AWS_S3_BUCKET}/${AWS_S3_BUCKET_FOLDER} \
+              --profile aws-deploy-action \
               --no-progress"
 SUCCESS=$?
 
@@ -60,7 +45,7 @@ then
   fi
 fi
 
-aws configure --profile s3-deploy-action <<-EOF > /dev/null 2>&1
+aws configure --profile aws-deploy-action <<-EOF > /dev/null 2>&1
 null
 null
 null
@@ -69,8 +54,8 @@ EOF
 
 if [ $SUCCESS -eq 0 ]
 then
-  echo "s3-deploy-action successful."
+  echo "aws-deploy-action successful."
 else
-  echo "s3-deploy-action failed."
+  echo "aws-deploy-action failed."
   exit 1
 fi

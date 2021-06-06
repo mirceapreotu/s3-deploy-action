@@ -1,12 +1,12 @@
 FROM node:12
 
-LABEL "com.github.actions.name"="S3 Deploy Action"
-LABEL "com.github.actions.description"="Installs and runs npm command, syncs ouput to an AWS S3 bucket and invalidates an AWS CloudFront distribution"
+LABEL "com.github.actions.name"="AWS Deploy Action"
+LABEL "com.github.actions.description"="Build distribution using npm, syncs dist folder to an AWS S3 bucket and invalidates a AWS CloudFront distribution."
 LABEL "com.github.actions.icon"="upload-cloud"
 LABEL "com.github.actions.color"="green"
 
 LABEL version="1.0.0"
-LABEL repository="https://github.com/mirceapreotu/s3-deploy-action"
+LABEL repository="https://github.com/mirceapreotu/aws-deploy-action"
 LABEL homepage="https://mirceapreotu.com/"
 LABEL maintainer="Mircea Preotu <mircea@incognicode.com>"
 

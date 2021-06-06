@@ -1,5 +1,5 @@
-name: "S3 Deploy Action"
-description: "Installs and runs npm command, syncs ouput to an AWS S3 bucket and invalidates an AWS CloudFront distribution"
+name: "AWS Deploy Action"
+description: "Build distribution using npm, syncs dist folder to an AWS S3 bucket and invalidates a AWS CloudFront distribution."
 author: mirceapreotu
 runs:
   using: docker
