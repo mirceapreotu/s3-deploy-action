@@ -29,9 +29,11 @@ ${AWS_REGION}
 text
 EOF
 
-sh -c "npm install" \
-&& sh -c "npm run build" \
-&& sh -c "aws s3 sync dist s3://${AWS_S3_BUCKET}/${AWS_S3_BUCKET_FOLDER} \
+sh -c "gem install bundler" \
+&& sh -c "bundle update --bundler" \
+&& sh -c "bundle install" \
+&& sh -c "bundle exec jekyll build" \
+&& sh -c "aws s3 sync _site s3://${AWS_S3_BUCKET}/${AWS_S3_BUCKET_FOLDER} \
               --profile aws-deploy-action \
               --no-progress"
 SUCCESS=$?
